@@ -79,7 +79,7 @@ async function handleRequest(request) {
 
           // 拼箱运费计算
           const volumeFreight = totalVolume * volumeRate;
-          const weightFreight = (totalWeight / 1000) * weightRate;
+          const weightFreight = (totalWeight / 1000) * weightRate;  // 转换为吨
           const lclFreight = Math.max(volumeFreight, weightFreight);
 
           // 整箱运费计算
@@ -99,8 +99,8 @@ async function handleRequest(request) {
             }
           }
 
-          // 最优方案选择
-          const optimalSolution = lclFreight < fclFreight ? "拼箱" : "整箱 (" + bestContainer + ")";
+          // 比较拼箱与整箱运费
+          const optimalSolution = (lclFreight < fclFreight) ? "拼箱" : "整箱 (" + bestContainer + ")";
           const optimalCost = Math.min(lclFreight, fclFreight);
 
           // 显示结果
